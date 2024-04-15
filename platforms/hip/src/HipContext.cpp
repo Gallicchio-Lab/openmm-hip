@@ -687,6 +687,13 @@ hipFunction_t HipContext::getKernel(hipModule_t& module, const string& name) {
     return function;
 }
 
+vector<ComputeContext*> HipContext::getAllContexts() {
+    vector<ComputeContext*> result;
+    for (HipContext* c : platformData.contexts)
+        result.push_back(c);
+    return result;
+}
+
 hipStream_t HipContext::getCurrentStream() {
     return currentStream;
 }

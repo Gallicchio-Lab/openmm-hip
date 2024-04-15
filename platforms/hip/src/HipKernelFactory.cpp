@@ -123,8 +123,6 @@ KernelImpl* HipKernelFactory::createKernelImpl(std::string name, const Platform&
         return new CommonCalcGayBerneForceKernel(name, platform, cu);
     if (name == IntegrateVerletStepKernel::Name())
         return new CommonIntegrateVerletStepKernel(name, platform, cu);
-    if (name == IntegrateLangevinStepKernel::Name())
-        return new CommonIntegrateLangevinStepKernel(name, platform, cu);
     if (name == IntegrateLangevinMiddleStepKernel::Name())
         return new CommonIntegrateLangevinMiddleStepKernel(name, platform, cu);
     if (name == IntegrateBrownianStepKernel::Name())

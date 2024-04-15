@@ -963,7 +963,7 @@ void HipCalcNonbondedForceKernel::initialize(const System& system, const Nonbond
             }
             exclusionAtoms.upload(exclusionAtomsVec);
             map<string, string> replacements;
-            replacements["PARAMS"] = cu.getBondedUtilities().addArgument(exclusionParams.getDevicePointer(), "float4");
+            replacements["PARAMS"] = cu.getBondedUtilities().addArgument(exclusionParams, "float4");
             replacements["EWALD_ALPHA"] = cu.doubleToString(alpha);
             replacements["TWO_OVER_SQRT_PI"] = cu.doubleToString(2.0/sqrt(M_PI));
             replacements["DO_LJPME"] = doLJPME ? "1" : "0";
@@ -1025,7 +1025,7 @@ void HipCalcNonbondedForceKernel::initialize(const System& system, const Nonbond
         baseExceptionParams.upload(baseExceptionParamsVec);
         map<string, string> replacements;
         replacements["APPLY_PERIODIC"] = (usePeriodic && force.getExceptionsUsePeriodicBoundaryConditions() ? "1" : "0");
-        replacements["PARAMS"] = cu.getBondedUtilities().addArgument(exceptionParams.getDevicePointer(), "float4");
+        replacements["PARAMS"] = cu.getBondedUtilities().addArgument(exceptionParams, "float4");
         if (force.getIncludeDirectSpace())
             cu.getBondedUtilities().addInteraction(atoms, cu.replaceStrings(CommonKernelSources::nonbondedExceptions, replacements), force.getForceGroup());
     }
